@@ -1,0 +1,9 @@
+myvenv
+db.sqlite3
+.vscode
+__pycache__
+*.pyc
+*.cpython-311.pyc
+*_initial.py
+*/migrations
+.DS_Store
