@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'tunatoriapp.apps.TunatoriappConfig',
+    'account.apps.AccountConfig'
 ]
 
 MIDDLEWARE = [
