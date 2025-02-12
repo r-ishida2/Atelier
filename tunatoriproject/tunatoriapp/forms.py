@@ -1,4 +1,4 @@
-from django.forms import ModelForm
+from django.forms import ModelForm, RadioSelect
 from .models import Publish, Reply
 
 class PublishCreationForm(ModelForm):
@@ -10,3 +10,6 @@ class ReplyCreationForm(ModelForm):
     class Meta:
         model = Reply
         fields = ('rating', 'comment')
+        widgets = {
+            'rating': RadioSelect(),
+        }
