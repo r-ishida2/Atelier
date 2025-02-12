@@ -1,5 +1,5 @@
 from django.db import models
-from account.models import CustomUser
+from accounts.models import CustomUser
 
 SCORE_CHOICES = (
     (1, '★1'),
@@ -21,18 +21,20 @@ class Publish(models.Model):
     category_id = models.ForeignKey(Category,on_delete=models.CASCADE)
     title = models.CharField(verbose_name="タイトル")
     detail = models.TextField(max_length=1024,verbose_name="作品詳細")
-    image = models.ImageField(upload_to="/images")
-    at_post = models.DateTimeField("date published",verbose_name="投稿日")
+    image = models.ImageField(upload_to="images")
+    at_post = models.DateTimeField("date published")
+    def __str__(self):
+        return self.title
 
 # 返信
 class Reply(models.Model):
     user_id = models.ForeignKey(CustomUser,on_delete=models.CASCADE)
     rating = models.IntegerField('評価値',choices=SCORE_CHOICES)
     comment = models.TextField(max_length=1024,verbose_name="コメント")
-    at_reply = models.DateTimeField("date published",verbose_name="返信日")
+    at_reply = models.DateTimeField("date published")
 
 # ブックマーク
 class Bookmark(models.Model):
     user_id = models.ForeignKey(CustomUser,on_delete=models.CASCADE)
     publish_id = models.ForeignKey(Publish,on_delete=models.CASCADE)
-    at_bookmark = models.DateTimeField("date published",verbose_name="ブックマーク追加日")
+    at_bookmark = models.DateTimeField("date published")
