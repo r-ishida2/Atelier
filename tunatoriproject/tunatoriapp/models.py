@@ -9,6 +9,10 @@ SCORE_CHOICES = (
     (5, '★5'),
 )
 
+CATEGORY_CHOICES = (
+    (),
+)
+
 # カテゴリー
 class Category(models.Model):
     name = models.CharField(max_length=64,verbose_name="カテゴリ名")
@@ -29,7 +33,7 @@ class Publish(models.Model):
 # 返信
 class Reply(models.Model):
     user_id = models.ForeignKey(CustomUser,on_delete=models.CASCADE)
-    rating = models.IntegerField('評価値',choices=SCORE_CHOICES)
+    rating = models.IntegerField('評価値',choices=SCORE_CHOICES,default=1)
     comment = models.TextField(max_length=1024,verbose_name="コメント")
     at_reply = models.DateTimeField("date published")
 
