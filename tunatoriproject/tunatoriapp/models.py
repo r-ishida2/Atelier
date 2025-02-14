@@ -10,12 +10,15 @@ SCORE_CHOICES = (
 )
 
 CATEGORY_CHOICES = (
-    (),
+    ('イラスト', 'イラスト'),
+    ('風景画', '風景画'),
+    ('写真', '写真'),
+    ('その他', 'その他'),
 )
 
 # カテゴリー
 class Category(models.Model):
-    name = models.CharField(max_length=64,verbose_name="カテゴリ名")
+    name = models.CharField(max_length=64,choices=CATEGORY_CHOICES,verbose_name="カテゴリ名")
     def __str__(self):
         return self.name
 
