@@ -46,7 +46,7 @@
                     <!-- Featured blog post-->
                     <div class="card mb-4">
                         <div class="card-body">
-                            <form method="post">
+                            <form method="post" enctype="multipart/form-data">
                                 {% csrf_token %}
                                 {{ form }}
                                 <button type="submit">投稿！</button>

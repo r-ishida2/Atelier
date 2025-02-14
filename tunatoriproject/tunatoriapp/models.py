@@ -29,7 +29,7 @@ class Publish(models.Model):
     category = models.CharField(max_length=64,choices=CATEGORY_CHOICES,verbose_name='カテゴリー')
     title = models.CharField(max_length=64,verbose_name="タイトル")
     detail = models.TextField(max_length=1024,verbose_name="作品詳細")
-    image = models.ImageField(upload_to="images")
+    image = models.ImageField(upload_to="images/")
     at_post = models.DateTimeField("date published")
     def __str__(self):
         return self.title
