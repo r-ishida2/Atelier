@@ -4,7 +4,7 @@ from .models import Publish,Reply
 
 class PublishAdmin(admin.ModelAdmin):
   list_display = ('id', 'title')
-  list_displaylinks = ('id', 'name')
+  list_displaylinks = ('id', 'title')
 admin.site.register(Publish,PublishAdmin)
 
 admin.site.register(Reply)
