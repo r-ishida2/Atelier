@@ -129,11 +129,11 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 
 AUTH_USER_MODEL = 'accounts.CustomUser'
 
-DEFAULT_FROM_EMAIL = 'fko2447073@stu.o-hara.ac.jp' # 自分のメールアドレス
+DEFAULT_FROM_EMAIL = 'fko2440000@stu.o-hara.ac.jp' # 自分のメールアドレス
 EMAIL_HOST = 'smtp-mail.outlook.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'fko2447073@stu.o-hara.ac.jp' # 自分のメールアドレス
-EMAIL_HOST_PASSWORD = 'Nekuto0215' # 自分のアカウントのパスワード
+EMAIL_HOST_USER = 'fko2440000@stu.o-hara.ac.jp' # 自分のメールアドレス
+EMAIL_HOST_PASSWORD = 'Password' # 自分のアカウントのパスワード
 EMAIL_USE_TLS = True
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
