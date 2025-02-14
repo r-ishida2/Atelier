@@ -4,7 +4,7 @@ from .models import Publish, Reply
 class PublishCreationForm(ModelForm):
     class Meta:
         model = Publish
-        fields = ('title', 'detail', 'image')
+        fields = ('title', 'detail', 'image', 'category')
 
 class ReplyCreationForm(ModelForm):
     class Meta:
