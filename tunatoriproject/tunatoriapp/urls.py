@@ -12,5 +12,5 @@ urlpatterns = [
 
     path('publish/', views.PublishView.as_view(), name='publish'),
 
-    path('reply/', views.ReplyView.as_view(), name='reply'),
+    path('<int:publish_id>/reply/', views.ReplyView.as_view(), name='reply'),
 ]
