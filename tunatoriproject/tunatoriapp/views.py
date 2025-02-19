@@ -4,6 +4,7 @@ from django.views.generic.edit import FormView,CreateView
 from .forms import PublishCreationForm, ReplyCreationForm
 from datetime import datetime
 from django.urls import reverse_lazy
+from .models import Publish
 
 class IndexView(TemplateView):
     template_name = 'index.html'
@@ -25,7 +26,15 @@ class PublishView(CreateView):
         data.save()
         return super().form_valid(form)
 
-class ReplyView(FormView):
+class ReplyView(CreateView):
     template_name = 'Reply.html'
     form_class = ReplyCreationForm
-    success_url = ""
+    success_url = reverse_lazy("tunatoriapp:index")
+    def form_valid(self, form):
+        data = form.save(commit=False)
+        publish_id = self.kwargs.get('publish_id')
+        data.publish_id = Publish.objects.get(id=publish_id)
+        data.user_id = self.request.user
+        data.at_reply = datetime.now()
+        data.save()
+        return super().form_valid(form)
