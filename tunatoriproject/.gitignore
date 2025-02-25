@@ -7,3 +7,4 @@ __pycache__
 *_initial.py
 */migrations
 .DS_Store
+media/images/*
