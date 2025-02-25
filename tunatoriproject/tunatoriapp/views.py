@@ -35,6 +35,10 @@ class ReplyView(CreateView):
     template_name = 'Reply.html'
     form_class = ReplyCreationForm
     success_url = reverse_lazy("tunatoriapp:index")
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["publish"] = Publish.objects.get(id=self.kwargs.get('publish_id'))
+        return context
     def form_valid(self, form):
         data = form.save(commit=False)
         publish_id = self.kwargs.get('publish_id')
