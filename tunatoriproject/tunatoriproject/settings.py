@@ -125,6 +125,7 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 import os
+from django.contrib import messages
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 
 AUTH_USER_MODEL = 'accounts.CustomUser'
@@ -138,3 +139,9 @@ EMAIL_USE_TLS = True
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+MESSAGE_TAGS = {
+   messages.INFO: 'alert alert-info',
+   messages.SUCCESS: 'alert alert-success',
+   messages.WARNING: 'alert alert-warning',
+   messages.ERROR: 'alert alert-danger',
+}
