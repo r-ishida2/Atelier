@@ -6,15 +6,19 @@ from datetime import datetime
 from django.urls import reverse_lazy
 from .models import Publish
 
+#作品一覧表示ページ
 class IndexView(TemplateView):
     template_name = 'index.html'
 
+#作品詳細ページ
 class PostView(TemplateView):
     template_name = 'post.html'
 
+#プロフィールページ
 class ProfileView(TemplateView):
     template_name = 'profile.html'
 
+#作品投稿ページ
 class PublishView(CreateView):
     template_name = 'publish.html'
     form_class = PublishCreationForm
@@ -26,6 +30,7 @@ class PublishView(CreateView):
         data.save()
         return super().form_valid(form)
 
+#コメント送信ページ
 class ReplyView(CreateView):
     template_name = 'Reply.html'
     form_class = ReplyCreationForm
