@@ -1,0 +1,17 @@
+{% for object in object_list %}
+<div class="content">
+<div class="title">
+<a href="{% url 'post_detail' post.pk %}">{{ object.title }}</a>
+</div>
+<div class="datatime">{{ object.created_date|date:"Y-n-j" }}</div>
+</div>
+ {% endfor %}
+ {% if messages %}
+<ul class="messages">
+       {% for message in messages %}
+<li {% if message.tags %} class="{{ message.tags }}"{% endif %}>
+           "{{ message }}" を含む検索結果:
+</li>
+       {% endfor %}
+</ul>
+   {% endif %}

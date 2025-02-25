@@ -11,11 +11,16 @@
         <div class="card mb-3">
             <div class="card-header">検索</div>
             <div class="card-body">
-                <div class="input-group">
-                    <input class="form-control" type="text" placeholder="キーワードを入力" aria-label="キーワード入力..."
-                        aria-describedby="button-search" />
-                    <button class="btn btn-primary" id="button-search" type="button">検索</button>
-                </div>
+
+                
+                <form method="post">
+                    <input type="search" value="{{ request.GET.query }}"
+                    name="query" type="text"
+                    placeholder=" 検索ワードを入力 ">
+                    <button class="btn btn-primary" id="button-search" 
+                    
+                    <button>検索</button>
+                </form>
             </div>
         </div>
         <div class="text-center my-5">
