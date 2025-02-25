@@ -10824,6 +10824,7 @@ textarea.form-control-lg {
   }
 }
 
+/* 投稿ボタン */
 .post_btn{
   position: fixed;
   top: 80%;/*自分が固定したい位置(例は上から0pxの位置)*/
