@@ -13,6 +13,7 @@
     <link rel="icon" type="image/x-icon" href="{% static 'assets/favicon.ico' %}" />
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="{% static 'css/styles.css' %}" rel="stylesheet" />
+
     
 </head>
 
@@ -31,7 +32,7 @@
                     {% if user.is_authenticated %}
                     <li class="nav-item"><a class="nav-link" href="{% url 'tunatoriapp:publish' %}">投稿</a></li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" id="logout-link">ログアウト</a>
+                        <a class="nav-link" href="" id="logout-link">ログアウト</a>
                         <form id="logout-form" action="{% url 'accounts:logout' %}" method="post"
                             style="display: none;">
                             {% csrf_token %}

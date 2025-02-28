@@ -1,0 +1,17 @@
+/* 投稿ボタン */
+.post_btn{
+    position: fixed;
+    top: 80%;/*自分が固定したい位置(例は上から0pxの位置)*/
+    left: 90%;/*自分が固定したい位置(例は左から10pxの位置)*/
+    width: 70px;
+    height: 70px;
+    border-radius: 100%;
+    overflow: hidden;
+    z-index: 9999;
+}
+.post_btn img {
+    position: relative;
+    right: 16px;
+    bottom: 11px;
+
+}
