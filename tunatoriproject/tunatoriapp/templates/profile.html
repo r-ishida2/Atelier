@@ -16,6 +16,8 @@
         <link href="https://fonts.googleapis.com/css?family=Muli:400,400i,800,800i" rel="stylesheet" type="text/css" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="{% static 'css/styles_profie.css' %}" rel="stylesheet" />
+        <link href="{% static 'css/postbutton.css' %}" rel="stylesheet" />
+
     </head>
     <body id="page-top">
         
@@ -97,7 +99,10 @@
                     </div>
                 </div> -->
             </section>
-            
-        <a class="fixed_btn" href="{% url 'tunatoriapp:publish' %}">投稿</a>
+            <div class="post_btn" >
+                <a href="{% url 'tunatoriapp:publish' %}">
+                    <img class="mb-4" src={% static 'images/post.png' %} alt="" width="100" height="100" >
+                </a>
+            </div>
     </body>
 </html>
