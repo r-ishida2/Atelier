@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.views.generic.base import TemplateView
+from django.views.generic import ListView
 from django.views.generic.edit import FormView,CreateView
 from .forms import PublishCreationForm, ReplyCreationForm
 from datetime import datetime
@@ -7,8 +8,11 @@ from django.urls import reverse_lazy
 from .models import Publish
 
 #作品一覧表示ページ
-class IndexView(TemplateView):
+class IndexView(ListView):
     template_name = 'index.html'
+    model = Publish
+    def get_queryset(self):
+        return Publish.objects.order_by("-at_post")
 
 #作品詳細ページ
 class PostView(TemplateView):
@@ -50,7 +54,6 @@ class ReplyView(CreateView):
 
 
 
-from django.views.generic import ListView
 from django.db.models import Q # get_queryset()用に追加
 from django.contrib import messages #　検索結果のメッセージのため追加
 class IndexList(ListView):
