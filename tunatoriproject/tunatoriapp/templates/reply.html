@@ -31,9 +31,13 @@
                         <div class="card-body">
                             <h3>【コメント一覧】</h3>
                             <ul class="list-unstyled mb-0">
-                                {% for reply in replys %}
-                                <li>{{reply.user_id.username}}：{{reply.comment}}</li>
-                                {% endfor %}
+                                {% if replys %}
+                                    {% for reply in replys %}
+                                        <li>{{reply.user_id.username}}：{{reply.comment}}</li>
+                                    {% endfor %}
+                                {% else %}
+                                    <li>コメントはありません</li>
+                                {% endif %}
                             </ul>
                         </div>
                     </div>
