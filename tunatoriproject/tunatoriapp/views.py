@@ -5,7 +5,7 @@ from django.views.generic.edit import FormView,CreateView
 from .forms import PublishCreationForm, ReplyCreationForm
 from datetime import datetime
 from django.urls import reverse_lazy
-from .models import Publish
+from .models import Publish,Reply
 
 #作品一覧表示ページ
 class IndexView(ListView):
@@ -42,6 +42,7 @@ class ReplyView(CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["publish"] = Publish.objects.get(id=self.kwargs.get('publish_id'))
+        context["replys"] = Reply.objects.filter(publish_id=self.kwargs.get('publish_id')).order_by("-at_reply")
         return context
     def form_valid(self, form):
         data = form.save(commit=False)

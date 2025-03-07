@@ -11,8 +11,9 @@
             <div class="card-header">検索</div>
             <div class="card-body">
 
-                
+
                 <form method="post">
+                    {% csrf_token %}
                     <input type="search" value="{{ request.GET.query }}"
                     name="query" type="text"
                     placeholder=" 検索ワードを入力 ">
