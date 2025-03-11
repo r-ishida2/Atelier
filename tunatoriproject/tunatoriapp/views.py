@@ -5,8 +5,14 @@ from django.views.generic.edit import FormView,CreateView
 from .forms import PublishCreationForm, ReplyCreationForm
 from datetime import datetime
 from django.urls import reverse_lazy
+<<<<<<< HEAD
+from .models import Publish
+from .models import CustomUser
+from django.shortcuts import get_object_or_404
+=======
 from .models import Publish,Reply
 import math
+>>>>>>> ffbe6746d1c912754e953c409afe132ee18b694e
 
 #作品一覧表示ページ
 class IndexView(ListView):
@@ -27,6 +33,13 @@ class PostView(TemplateView):
 #プロフィールページ
 class ProfileView(TemplateView):
     template_name = 'profile.html'
+    def get_user_data(self, **kwargs):
+        user = super().get_user_data(**kwargs)
+        user["publish"] = Publish.objects.get(id=self.kwargs.get('publish_id'))
+        return user
+
+    # user= get_object_or_404(, id=user_id)
+    # return render(request, 'profile.html',{'user': user})
 
 #作品投稿ページ
 class PublishView(CreateView):
