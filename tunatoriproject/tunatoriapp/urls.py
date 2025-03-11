@@ -8,7 +8,7 @@ urlpatterns = [
 
     path('post/<int:publish_id>/', views.ReplyView.as_view(), name='post'),
 
-    path('profile/<int:user_id>', views.ProfileView.as_view(), name='profile'),
+    path('profile/<int:user_id>/', views.ProfileView.as_view(), name='profile'),
 
     path('publish/', views.PublishView.as_view(), name='publish'),
 
