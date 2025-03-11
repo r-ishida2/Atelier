@@ -1,11 +1,13 @@
 from django.shortcuts import render
+from django.http import HttpResponseRedirect
 from django.views.generic.base import TemplateView
 from django.views.generic import ListView
 from django.views.generic.edit import FormView,CreateView
 from .forms import PublishCreationForm, ReplyCreationForm
 from datetime import datetime
-from django.urls import reverse_lazy
-from .models import Publish,Reply
+from django.urls import reverse_lazy,reverse
+from django.forms.models import model_to_dict
+from .models import Publish,Reply,Bookmark
 import math
 
 #作品一覧表示ページ
@@ -20,9 +22,22 @@ class IndexView(ListView):
             publish = Publish.objects.order_by("-at_post")
         return publish
 
-#作品詳細ページ
-class PostView(TemplateView):
-    template_name = 'post.html'
+def bookmark(request,publish_id):
+    Bookmark.objects.create(
+        publish_id = Publish.objects.get(id=publish_id),
+        user_id = request.user,
+        at_bookmark = datetime.now()
+    )
+    return HttpResponseRedirect(reverse('tunatoriapp:post',kwargs={'publish_id':publish_id}))
+def bookmark_del(request,bookmark_id):
+    obj = Bookmark.objects.get(id=bookmark_id)
+    publish_id = model_to_dict(obj)['publish_id']
+    obj.delete()
+    return HttpResponseRedirect(reverse('tunatoriapp:post',kwargs={'publish_id':publish_id}))
+
+# #作品詳細ページ
+# class PostView(TemplateView):
+#     template_name = 'post.html'
 
 #プロフィールページ
 class ProfileView(TemplateView):
@@ -40,7 +55,7 @@ class PublishView(CreateView):
         data.save()
         return super().form_valid(form)
 
-#コメント送信ページ
+#作品詳細・コメント送信ページ
 class ReplyView(CreateView):
     template_name = 'Reply.html'
     form_class = ReplyCreationForm
@@ -50,6 +65,9 @@ class ReplyView(CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["publish"] = Publish.objects.get(id=self.kwargs.get('publish_id'))
+        bookmark = list(Bookmark.objects.filter(publish_id=self.kwargs.get('publish_id'),user_id=self.request.user).values())
+        if bookmark:
+            context["bookmark"] = bookmark[0]["id"]
         replys = Reply.objects.filter(publish_id=self.kwargs.get('publish_id')).order_by("-at_reply")
         context["replys"] = replys
 
