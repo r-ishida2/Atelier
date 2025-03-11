@@ -6,6 +6,7 @@ from .forms import PublishCreationForm, ReplyCreationForm
 from datetime import datetime
 from django.urls import reverse_lazy
 from .models import Publish,Reply
+import math
 
 #作品一覧表示ページ
 class IndexView(ListView):
@@ -38,11 +39,23 @@ class PublishView(CreateView):
 class ReplyView(CreateView):
     template_name = 'Reply.html'
     form_class = ReplyCreationForm
-    success_url = reverse_lazy("tunatoriapp:index")
+    success_url = reverse_lazy("")
+    def get_success_url(self):
+        return reverse_lazy("tunatoriapp:post",kwargs={"publish_id":self.kwargs["publish_id"]})
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["publish"] = Publish.objects.get(id=self.kwargs.get('publish_id'))
-        context["replys"] = Reply.objects.filter(publish_id=self.kwargs.get('publish_id')).order_by("-at_reply")
+        replys = Reply.objects.filter(publish_id=self.kwargs.get('publish_id')).order_by("-at_reply")
+        context["replys"] = replys
+
+        #評価値の平均計算
+        rating = 0
+        if replys:
+            for reply in replys:
+                rating += reply.rating
+            rating = math.floor(rating/len(replys)*10)/10.0
+        context["rating"] = rating
+
         return context
     def form_valid(self, form):
         data = form.save(commit=False)
