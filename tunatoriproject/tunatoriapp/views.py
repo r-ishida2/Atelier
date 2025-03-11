@@ -13,7 +13,12 @@ class IndexView(ListView):
     template_name = 'index.html'
     model = Publish
     def get_queryset(self):
-        return Publish.objects.order_by("-at_post")
+        query = self.request.GET.get('query')
+        if query:
+            publish = Publish.objects.filter(title__icontains=query).order_by("-at_post")
+        else:
+            publish = Publish.objects.order_by("-at_post")
+        return publish
 
 #作品詳細ページ
 class PostView(TemplateView):
@@ -68,18 +73,18 @@ class ReplyView(CreateView):
 
 
 
-from django.db.models import Q # get_queryset()用に追加
-from django.contrib import messages #　検索結果のメッセージのため追加
-class IndexList(ListView):
-   template_name = 'report/index.html'
-   paginate_by = 2
-   # context_object_name = 'post_list'
-   def get_queryset(self): # 検索機能のために追加
-       queryset = Post.objects.order_by('-created_date')
-       query = self.request.GET.get('query')
-       if query:
-           queryset = queryset.filter(
-           Q(title__icontains=query) | Q(body__icontains=query)
-           )
-       messages.add_message(self.request, messages.INFO, query) #　検索結果メッセージ
-       return queryset
+# from django.db.models import Q # get_queryset()用に追加
+# from django.contrib import messages #　検索結果のメッセージのため追加
+# class IndexList(ListView):
+#    template_name = 'index.html'
+#    paginate_by = 2
+#    # context_object_name = 'post_list'
+#    def get_queryset(self): # 検索機能のために追加
+#        queryset = Publish.objects.order_by('-at_post')
+#        query = self.request.GET.get('query')
+#        if query:
+#            queryset = queryset.filter(
+#            Q(title__icontains=query) | Q(body__icontains=query)
+#            )
+#        messages.add_message(self.request, messages.INFO, query) #　検索結果メッセージ
+#        return queryset

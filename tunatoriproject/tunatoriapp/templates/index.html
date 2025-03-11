@@ -12,12 +12,12 @@
             <div class="card-body">
 
 
-                <form method="post">
+                <form method="get">
                     {% csrf_token %}
                     <input type="search" value="{{ request.GET.query }}"
                     name="query" type="text"
                     placeholder=" 検索ワードを入力 ">
-                    <button class="btn btn-primary" id="button-search">検索</button>
+                    <button type="submit" class="btn btn-primary" id="button-search">検索</button>
                 </form>
             </div>
         </div>
@@ -34,17 +34,23 @@
 <!-- Blog entries-->
 <div class="col-lg-8">
     <!-- Featured blog post-->
-    {% for record in object_list %}
-    <div class="card mb-4">
-        <a href="#!"><img class="card-img-top" src="/media/{{record.image}}" alt="..." /></a>
-        <div class="card-body">
-            <div class="small text-muted">{{record.at_post}}</div>
-            <h2 class="card-title">{{record.title}}</h2>
-            <p class="card-text">{{record.detail}}</p>
-            <a class="btn btn-primary" href="{% url 'tunatoriapp:post' record.id %}">詳細 →</a>
+    {% if object_list %}
+        {% for record in object_list %}
+        <div class="card mb-4">
+            <a href="#!"><img class="card-img-top" src="/media/{{record.image}}" alt="..." /></a>
+            <div class="card-body">
+                <div class="small text-muted">{{record.at_post}}</div>
+                <h2 class="card-title">{{record.title}}</h2>
+                <p class="card-text">{{record.detail}}</p>
+                <a class="btn btn-primary" href="{% url 'tunatoriapp:post' record.id %}">詳細 →</a>
+            </div>
         </div>
-    </div>
-    {% endfor %}
+        {% endfor %}
+    {% else %}
+        <div class="cart mb-4">
+            <h2 class="cart-title">(検索結果は)ないです。</h2>
+        </div>
+    {% endif %}
     <!-- Nested row for non-featured blog posts-->
     <div class="row">
         <div class="col-lg-6">
