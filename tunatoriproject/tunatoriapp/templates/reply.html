@@ -4,7 +4,6 @@
 
 {% block contents %}
     <body>
-
         <header class="py-5 bg-light border-bottom mb-4">
             <div class="container">
                 <div class="text-center my-5">
@@ -21,8 +20,36 @@
                     <!-- Featured blog post-->
                     <div class="card mb-4">
                         <div class="card-body">
-                                <img src="/media/{{publish.image}}" width="100%">
-                                <p class="lead mb-0">タイトル：{{ publish.title }}</p>
+                            <a href="{% url 'tunatoriapp:profile' %}">{{publish.user_id.username}}</a>
+                            <h2 class="mb-0">タイトル：{{ publish.title }}</h2>
+
+                            {% if rating == 0 %}
+                            <p>平均評価値：評価はまだないよ</p>
+                            {% else %}
+                            <p>平均評価値：{{ rating }}</p>
+                            {% endif %}
+                            <img src="/media/{{publish.image}}" width="100%">
+                            <p>【作品について】<br>
+                                {{ publish.detail }}</p>
+                        </div>
+                    </div>
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h3>【コメント一覧】</h3>
+                            <ul class="list-unstyled mb-0">
+                                {% if replys %}
+                                    {% for reply in replys %}
+                                        <li>{{reply.user_id.username}}：{{reply.comment}}</li>
+                                    {% endfor %}
+                                {% else %}
+                                    <li>コメントはありません</li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h3>【評価する】</h3>
                             <form method="post">
                                 {% csrf_token %}
                                 {{ form }}
