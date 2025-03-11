@@ -35,11 +35,17 @@
 <div class="col-lg-8">
     <!-- Featured blog post-->
     {% if object_list %}
-        {% for record in object_list %}
-        <div class="card mb-4">
-            <a href="#!"><img class="card-img-top" src="/media/{{record.image}}" alt="..." /></a>
+    {% for record in object_list %}
+    <div class="card mb-4">
             <div class="card-body">
-                <div class="small text-muted">{{record.at_post}}</div>
+                <h3>
+                    <a class="btn btn-primary" href="{% url 'tunatoriapp:post' record.id %}">アイコン</a>{{record.user_id.username}}　　　　　　　{{record.at_post}}<div class="small text-muted">{{record.at_post}}</div>
+                </h3>
+                <h2>{{record.title}}</h2>
+            
+            
+                <p class="card-text">{{record.detail}}</p>
+            <a href="#!"><img class="card-img-top" src="/media/{{record.image}}" alt="..." /></a>
                 <h2 class="card-title">{{record.title}}</h2>
                 <p class="card-text">{{record.detail}}</p>
                 <a class="btn btn-primary" href="{% url 'tunatoriapp:post' record.id %}">詳細 →</a>
