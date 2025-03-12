@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+
+{% block title %}Tunatori Home{% endblock %}
+
+{% block header %}
+{% load static %}
+<!-- Page header with logo and tagline-->
+<header class="py-1 bg-light border-bottom mb-4">
+    <div class="container">
+        <div class="text-center my-5">
+            <h1 class="fw-bolder">つなぐアトリエ</h1>
+            <p class="lead mb-0">～私の表現、みんなの未来～</p>
+        </div>
+    </div>
+</header>
+{% endblock %}
+
+
+{% block contents %}
+<!-- Blog entries-->
+<div class="col-lg-8">
+    <!-- Featured blog post-->
+    {% if bookmarked_publishes %}
+    {% for publish in bookmarked_publishes %}
+    <div class="card mb-4">
+            <div class="card-body">
+                <h3>
+                    <a class="btn btn-primary" href="{% url 'tunatoriapp:post' publish.id %}">アイコン</a>{{publish.user_id.username}}　　　　　　　{{publish.at_post}}<div class="small text-muted">{{publish.at_post}}</div>
+                </h3>
+                <h2>{{publish.title}}</h2>
+            
+            
+                <p class="card-text">{{publish.detail}}</p>
+            <a href="#!"><img class="card-img-top" src="/media/{{publish.image}}" alt="..." /></a>
+                <h2 class="card-title">{{publish.title}}</h2>
+                <p class="card-text">{{publish.detail}}</p>
+                <a class="btn btn-primary" href="{% url 'tunatoriapp:post' publish.id %}">詳細 →</a>
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <div class="cart mb-4">
+            <h2 class="cart-title">あなたがブックしている作品はありません。</h2>
+        </div>
+    {% endif %}
+    <!-- Nested row for non-featured blog posts-->
+    <div class="row">
+        <div class="col-lg-6">
+        </div>
+        <div class="col-lg-6">
+        </div>
+    </div>
+    <!-- Pagination-->
+
+</div>
+{% endblock %}
+
+{% block category %}
+<!-- Side widgets-->
+<div class="col-lg-4">
+    <!-- Search widget-->
+    <div class="card mb-4">
+    </div>
+    <!-- Categories widget-->
+    <div class="card mb-4">
+        <div class="card-header">「つなトリ」とは</div>
+        <div class="card-body">
+            <div>
+                <div>
+                    <ul class="list-unstyled mb-0">
+                        <li>「つなトリ」とは「つなぐアトリエ」の略称です。ヒト・モノ・コトをつなぎ新しい発見や創造が生まれる場所です。自分の作品をこのアトリエに投稿したり、作品を鑑賞してぜひこの空間を楽しんでいってください！</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Side widget-->
+</div>
+{% if user.is_authenticated %}
+<div class="post_btn" >
+    <a href="{% url 'tunatoriapp:publish' %}">
+        <img class="mb-4" src={% static 'images/post.png' %} alt="" width="100" height="100" >
+    </a>
+</div>
+{% endif %}
+{% endblock %}

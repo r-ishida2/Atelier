@@ -12,6 +12,7 @@ from django.urls import reverse_lazy
 from accounts.models import CustomUser
 from .models import Publish,Reply
 import math
+from django.contrib.auth.decorators import login_required
 
 #作品一覧表示ページ
 class IndexView(ListView):
@@ -46,9 +47,9 @@ def bookmark_del(request,bookmark_id):
 class ProfileView(ListView):
     template_name = 'profile.html'
     model = Publish
-    def get_queryset(self):
+    def get_queryset(self, **kwargs):
         # 必要な QuerySet を返す（例: 全件、もしくはフィルタリングしたもの）
-        return Publish.objects.all()
+        return Publish.objects.filter(user_id= self.kwargs.get('user_id'))
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -122,3 +123,10 @@ class ReplyView(CreateView):
 #            )
 #        messages.add_message(self.request, messages.INFO, query) #　検索結果メッセージ
 #        return queryset
+
+@login_required
+def bookmarked_publishes(request):
+    # ログインユーザーがブックマークしている作品を取得
+    bookmarked_publishes = Publish.objects.filter(id__in=Bookmark.objects.filter(user_id=request.user).values_list('publish_id', flat=True))
+
+    return render(request, 'book_list.html', {'bookmarked_publishes': bookmarked_publishes})

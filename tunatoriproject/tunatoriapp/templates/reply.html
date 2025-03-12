@@ -6,9 +6,11 @@
     <body>
         <header class="py-5 bg-light border-bottom mb-4">
             <div class="container">
+                
                 <div class="text-center my-5">
                     <h1 class="fw-bolder">返信ページ</h1>
                     <p class="lead mb-0">このページで作品にコメントができます</p>
+                    <input type="button" value="戻る" onClick="javascript:history.go(-1);">
                 </div>
             </div>
         </header>
@@ -23,9 +25,9 @@
                             <a href="{% url 'tunatoriapp:profile' publish.user_id.id %}">{{publish.user_id.username}}</a>
                             <h2 class="mb-0">タイトル：{{ publish.title }}</h2>
                             {% if rating == 0 %}
-                            <p>平均評価値：評価はまだないよ</p>
+                            <p>平均評価：☆---</p>
                             {% else %}
-                            <p>平均評価値：{{ rating }}</p>
+                            <p>平均評価:☆{{ rating }}</p>
                             {% endif %}
                             <img src="/media/{{publish.image}}" width="100%">
                             <p>【作品について】<br>
@@ -45,7 +47,7 @@
                             <ul class="list-unstyled mb-0">
                                 {% if replys %}
                                     {% for reply in replys %}
-                                        <li>{{reply.user_id.username}}：{{reply.comment}}</li>
+                                        <li>☆{{reply.rating}} | {{reply.user_id.username}}：{{reply.comment}}</li>
                                     {% endfor %}
                                 {% else %}
                                     <li>コメントはまだありません</li>
@@ -69,6 +71,7 @@
                     </div>
                 </div>
                 <!-- Side widgets-->
+                
                 <div class="col-lg-4">
                     <!-- Categories widget-->
                     <div class="card mb-4">
