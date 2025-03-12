@@ -12,6 +12,7 @@ from django.urls import reverse_lazy
 from accounts.models import CustomUser
 from .models import Publish,Reply
 import math
+from django.contrib.auth.decorators import login_required
 
 #作品一覧表示ページ
 class IndexView(ListView):
@@ -121,3 +122,10 @@ class ReplyView(CreateView):
 #            )
 #        messages.add_message(self.request, messages.INFO, query) #　検索結果メッセージ
 #        return queryset
+
+@login_required
+def bookmarked_publishes(request):
+    # ログインユーザーがブックマークしている作品を取得
+    bookmarked_publishes = Publish.objects.filter(id__in=Bookmark.objects.filter(user_id=request.user).values_list('publish_id', flat=True))
+
+    return render(request, 'book_list.html', {'bookmarked_publishes': bookmarked_publishes})
