@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Publish,Reply
+from .models import Publish,Reply,Bookmark
 # Register your models here.
 
 class PublishAdmin(admin.ModelAdmin):
@@ -8,3 +8,4 @@ class PublishAdmin(admin.ModelAdmin):
 admin.site.register(Publish,PublishAdmin)
 
 admin.site.register(Reply)
+admin.site.register(Bookmark)

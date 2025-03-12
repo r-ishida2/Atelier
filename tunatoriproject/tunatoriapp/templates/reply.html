@@ -22,7 +22,6 @@
                         <div class="card-body">
                             <a href="{% url 'tunatoriapp:profile' publish.user_id.id %}">{{publish.user_id.username}}</a>
                             <h2 class="mb-0">タイトル：{{ publish.title }}</h2>
-
                             {% if rating == 0 %}
                             <p>平均評価：☆---</p>
                             {% else %}
@@ -31,10 +30,17 @@
                             <img src="/media/{{publish.image}}" width="100%">
                             <p>【作品について】<br>
                                 {{ publish.detail }}</p>
-                        </div>
+                        <!-- </div>
                     </div>
                     <div class="card mb-4">
-                        <div class="card-body">
+                        <div class="card-body"> -->
+                        {% if user.is_authenticated  %}
+                            {% if bookmark %}
+                            <a class="btn btn-primary" href="{% url 'tunatoriapp:bookmark_del' bookmark %}">ブックマーク解除</a>
+                            {% else %}
+                            <a class="btn btn-primary" href="{% url 'tunatoriapp:bookmark' publish.id %}" >ブックマークする</a>
+                            {% endif %}
+                        {% endif %}
                             <h3>【コメント一覧】</h3>
                             <ul class="list-unstyled mb-0">
                                 {% if replys %}
@@ -42,7 +48,7 @@
                                         <li>{{reply.user_id.username}}：{{reply.comment}}</li>
                                     {% endfor %}
                                 {% else %}
-                                    <li>コメントはありません</li>
+                                    <li>コメントはまだありません</li>
                                 {% endif %}
                             </ul>
                         </div>
@@ -50,11 +56,15 @@
                     <div class="card mb-4">
                         <div class="card-body">
                             <h3>【評価する】</h3>
+                            {% if user.is_authenticated %}
                             <form method="post">
                                 {% csrf_token %}
                                 {{ form }}
-                                <button type="submit">投稿！</button>
+                                <button type="submit">送信！</button>
                             </form>
+                            {% else %}
+                            <h3>ログインすると評価ができます</h3>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
