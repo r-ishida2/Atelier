@@ -34,11 +34,13 @@
                     </div>
                     <div class="card mb-4">
                         <div class="card-body"> -->
+                        {% if user.is_authenticated  %}
                             {% if bookmark %}
                             <a class="btn btn-primary" href="{% url 'tunatoriapp:bookmark_del' bookmark %}">ブックマーク解除</a>
                             {% else %}
                             <a class="btn btn-primary" href="{% url 'tunatoriapp:bookmark' publish.id %}" >ブックマークする</a>
                             {% endif %}
+                        {% endif %}
                             <h3>【コメント一覧】</h3>
                             <ul class="list-unstyled mb-0">
                                 {% if replys %}
