@@ -24,9 +24,9 @@
                             <h2 class="mb-0">タイトル：{{ publish.title }}</h2>
 
                             {% if rating == 0 %}
-                            <p>平均評価値：評価はまだないよ</p>
+                            <p>平均評価：☆---</p>
                             {% else %}
-                            <p>平均評価値：{{ rating }}</p>
+                            <p>平均評価:☆{{ rating }}</p>
                             {% endif %}
                             <img src="/media/{{publish.image}}" width="100%">
                             <p>【作品について】<br>
