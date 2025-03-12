@@ -7,7 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>ユーザー名　プロフィール</title>
+        <title>{{publish.user_id.username}}のプロフィール</title>
         <link rel="icon" type="image/x-icon" href="{% static 'assets/favicon.ico' %}" />
         <!-- Font Awesome icons (free version)-->
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
@@ -43,10 +43,10 @@
             <section class="resume-section" id="about">
                 <div class="resume-section-content">
                     <h1 class="mb-0">
-                        ユーザーネーム
+                        {{ user.username }}
                     </h1>
                     <div class="subheading mb-5">
-                        <a href="mailto:name@email.com">メアド@ここに.表示</a>
+                        <a href="mailto:name@email.com">{{ user.email}}</a>
                     </div>
                     <p class="lead mb-5"></p>
                     <!-- <div class="social-icons">

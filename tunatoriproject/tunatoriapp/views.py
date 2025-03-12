@@ -8,6 +8,9 @@ from datetime import datetime
 from django.urls import reverse_lazy,reverse
 from django.forms.models import model_to_dict
 from .models import Publish,Reply,Bookmark
+from django.urls import reverse_lazy
+from accounts.models import CustomUser
+from .models import Publish,Reply
 import math
 
 #作品一覧表示ページ
@@ -40,8 +43,20 @@ def bookmark_del(request,bookmark_id):
 #     template_name = 'post.html'
 
 #プロフィールページ
-class ProfileView(TemplateView):
+class ProfileView(ListView):
     template_name = 'profile.html'
+    model = Publish
+    def get_queryset(self):
+        # 必要な QuerySet を返す（例: 全件、もしくはフィルタリングしたもの）
+        return Publish.objects.all()
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["user"] = CustomUser.objects.get(id=self.kwargs.get('user_id'))
+        return context
+
+    # user= get_object_or_404(, id=user_id)
+    # return render(request, 'profile.html',{'user': user})
 
 #作品投稿ページ
 class PublishView(CreateView):
