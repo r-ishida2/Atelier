@@ -47,9 +47,9 @@ def bookmark_del(request,bookmark_id):
 class ProfileView(ListView):
     template_name = 'profile.html'
     model = Publish
-    def get_queryset(self):
+    def get_queryset(self, **kwargs):
         # 必要な QuerySet を返す（例: 全件、もしくはフィルタリングしたもの）
-        return Publish.objects.all()
+        return Publish.objects.filter(user_id= self.kwargs.get('user_id'))
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -81,9 +81,10 @@ class ReplyView(CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["publish"] = Publish.objects.get(id=self.kwargs.get('publish_id'))
-        bookmark = list(Bookmark.objects.filter(publish_id=self.kwargs.get('publish_id'),user_id=self.request.user).values())
-        if bookmark:
-            context["bookmark"] = bookmark[0]["id"]
+        if self.request.user.is_authenticated:
+            bookmark = list(Bookmark.objects.filter(publish_id=self.kwargs.get('publish_id'),user_id=self.request.user).values())
+            if bookmark:
+                context["bookmark"] = bookmark[0]["id"]
         replys = Reply.objects.filter(publish_id=self.kwargs.get('publish_id')).order_by("-at_reply")
         context["replys"] = replys
 
