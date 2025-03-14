@@ -8,3 +8,4 @@ __pycache__
 */migrations
 .DS_Store
 media/images/*
+media/usericons/*
