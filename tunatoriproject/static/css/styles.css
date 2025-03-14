@@ -10840,3 +10840,16 @@ textarea.form-control-lg {
   right: 28px;
   bottom: 11px;
 }
+.jikoku{
+  position: absolute;
+  top: 3%;
+  left: 70%;
+  font-size: 1rem;
+  color:#969494;
+  text-decoration: none;
+
+}
+.aikon{
+width: 60px;
+height: 60px;
+}
