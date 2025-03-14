@@ -22,22 +22,24 @@ class IndexView(ListView):
         query = self.request.GET.get('query')
         if query:
             publish = Publish.objects.filter(title__icontains=query).order_by("-at_post")
+            if not publish.exists():
+                return None
         else:
             publish = Publish.objects.order_by("-at_post")
         return publish
 
-def bookmark(request,publish_id):
+def bookmark(request,publish):
     Bookmark.objects.create(
-        publish_id = Publish.objects.get(id=publish_id),
-        user_id = request.user,
+        publish = Publish.objects.get(id=publish),
+        user = request.user,
         at_bookmark = datetime.now()
     )
-    return HttpResponseRedirect(reverse('tunatoriapp:post',kwargs={'publish_id':publish_id}))
+    return HttpResponseRedirect(reverse('tunatoriapp:post',kwargs={'publish':publish}))
 def bookmark_del(request,bookmark_id):
     obj = Bookmark.objects.get(id=bookmark_id)
-    publish_id = model_to_dict(obj)['publish_id']
+    publish = model_to_dict(obj)['publish']
     obj.delete()
-    return HttpResponseRedirect(reverse('tunatoriapp:post',kwargs={'publish_id':publish_id}))
+    return HttpResponseRedirect(reverse('tunatoriapp:post',kwargs={'publish':publish}))
 
 # #作品詳細ページ
 # class PostView(TemplateView):
@@ -49,14 +51,14 @@ class ProfileView(ListView):
     model = Publish
     def get_queryset(self, **kwargs):
         # 必要な QuerySet を返す（例: 全件、もしくはフィルタリングしたもの）
-        return Publish.objects.filter(user_id= self.kwargs.get('user_id'))
+        return Publish.objects.filter(user= self.kwargs.get('user'))
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["user"] = CustomUser.objects.get(id=self.kwargs.get('user_id'))
+        context["user"] = CustomUser.objects.get(id=self.kwargs.get('user'))
         return context
 
-    # user= get_object_or_404(, id=user_id)
+    # user= get_object_or_404(, id=user)
     # return render(request, 'profile.html',{'user': user})
 
 #作品投稿ページ
@@ -66,7 +68,7 @@ class PublishView(CreateView):
     success_url = reverse_lazy("tunatoriapp:index")
     def form_valid(self, form):
         data = form.save(commit=False)
-        data.user_id = self.request.user
+        data.user = self.request.user
         data.at_post = datetime.now()
         data.save()
         return super().form_valid(form)
@@ -77,15 +79,15 @@ class ReplyView(CreateView):
     form_class = ReplyCreationForm
     success_url = reverse_lazy("")
     def get_success_url(self):
-        return reverse_lazy("tunatoriapp:post",kwargs={"publish_id":self.kwargs["publish_id"]})
+        return reverse_lazy("tunatoriapp:post",kwargs={"publish":self.kwargs["publish"]})
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["publish"] = Publish.objects.get(id=self.kwargs.get('publish_id'))
+        context["publish"] = Publish.objects.get(id=self.kwargs.get('publish'))
         if self.request.user.is_authenticated:
-            bookmark = list(Bookmark.objects.filter(publish_id=self.kwargs.get('publish_id'),user_id=self.request.user).values())
+            bookmark = list(Bookmark.objects.filter(publish=self.kwargs.get('publish'),user=self.request.user).values())
             if bookmark:
                 context["bookmark"] = bookmark[0]["id"]
-        replys = Reply.objects.filter(publish_id=self.kwargs.get('publish_id')).order_by("-at_reply")
+        replys = Reply.objects.filter(publish=self.kwargs.get('publish')).order_by("-at_reply")
         context["replys"] = replys
 
         #評価値の平均計算
@@ -99,9 +101,9 @@ class ReplyView(CreateView):
         return context
     def form_valid(self, form):
         data = form.save(commit=False)
-        publish_id = self.kwargs.get('publish_id')
-        data.publish_id = Publish.objects.get(id=publish_id)
-        data.user_id = self.request.user
+        publish = self.kwargs.get('publish')
+        data.publish = Publish.objects.get(id=publish)
+        data.user = self.request.user
         data.at_reply = datetime.now()
         data.save()
         return super().form_valid(form)
@@ -127,6 +129,6 @@ class ReplyView(CreateView):
 @login_required
 def bookmarked_publishes(request):
     # ログインユーザーがブックマークしている作品を取得
-    bookmarked_publishes = Publish.objects.filter(id__in=Bookmark.objects.filter(user_id=request.user).values_list('publish_id', flat=True))
+    bookmarked_publishes = Publish.objects.filter(id__in=Bookmark.objects.filter(user=request.user).values_list('publish', flat=True))
 
     return render(request, 'book_list.html', {'bookmarked_publishes': bookmarked_publishes})

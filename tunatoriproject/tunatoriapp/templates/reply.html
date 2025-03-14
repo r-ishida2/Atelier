@@ -22,12 +22,12 @@
                     <!-- Featured blog post-->
                     <div class="card mb-4">
                         <div class="card-body">
-                            <a href="{% url 'tunatoriapp:profile' publish.user_id.id %}">{{publish.user_id.username}}</a>
+                            <a href="{% url 'tunatoriapp:profile' publish.user.id %}">{{publish.user.username}}</a>
                             <h2 class="mb-0">タイトル：{{ publish.title }}</h2>
-                            {% if rating == 0 %}
+                            {% if publish.rating_ave == 0 %}
                             <p>平均評価：☆---</p>
                             {% else %}
-                            <p>平均評価:☆{{ rating }}</p>
+                            <p>平均評価:☆{{ publish.rating_ave }}</p>
                             {% endif %}
                             <img src="/media/{{publish.image}}" width="100%">
                             <p>【作品について】<br>
@@ -47,7 +47,7 @@
                             <ul class="list-unstyled mb-0">
                                 {% if replys %}
                                     {% for reply in replys %}
-                                        <li>☆{{reply.rating}} | {{reply.user_id.username}}：{{reply.comment}}</li>
+                                        <li>☆{{reply.rating}} | {{reply.user.username}}：{{reply.comment}}</li>
                                     {% endfor %}
                                 {% else %}
                                     <li>コメントはまだありません</li>
@@ -80,6 +80,7 @@
                             <div>
                                 <div>
                                     <ul class="list-unstyled mb-0">
+                                        <li>ログインすることでコメントができます</li>
                                         <li>評価値は★５から★１までが選択できます</li>
                                         <li>コメントは必須です</li>
                                         <li>入力後は投稿ボタンをクリックして下さい</li>
