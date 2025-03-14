@@ -45,7 +45,7 @@
             <div class="card-body">
                 <h3>
                     <a href="{% url 'tunatoriapp:profile' record.user.id %}">
-                        <img class="aikon" src="/media/images/kkrn_icon_user_1.png">
+                        <img class="aikon" src="/media/{{record.user.usericon}}">
                     </a>
                     {{record.user.username}}
                 </h3>
