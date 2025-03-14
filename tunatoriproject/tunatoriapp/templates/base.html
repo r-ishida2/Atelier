@@ -32,6 +32,7 @@
                             href="{% url 'tunatoriapp:index' %}">Home</a></li>
                     {% if user.is_authenticated %}
                     <li class="nav-item"><a class="nav-link" href="{% url 'tunatoriapp:publish' %}">投稿</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'tunatoriapp:bookmarked_publishes' %}">ブックマーク</a></li>
                     <li class="nav-item">
                         <a class="nav-link" href="" id="logout-link">ログアウト</a>
                         <form id="logout-form" action="{% url 'accounts:logout' %}" method="post"
