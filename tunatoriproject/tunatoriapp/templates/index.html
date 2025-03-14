@@ -35,26 +35,37 @@
 <div class="col-lg-8">
     <!-- Featured blog post-->
     {% if object_list %}
+        {% if request.GET.query %}
+        <div class="cart mb-4">
+            <h2 class="cart-title">「{{ request.GET.query }}」の検索結果： {{ object_list|length }}件</h2>
+        </div>
+        {% endif %}
     {% for record in object_list %}
     <div class="card mb-4">
             <div class="card-body">
                 <h3>
-                    <a class="btn btn-primary" href="{% url 'tunatoriapp:profile' record.user_id.id %}">アイコン</a>{{record.user_id.username}}　　　　　　　{{record.at_post}}<div class="small text-muted">{{record.at_post}}</div>
+                    <a class="btn btn-primary" href="{% url 'tunatoriapp:profile' record.user.id %}">アイコン</a>{{record.user.username}}　　　　　　　{{record.at_post}}<div class="small text-muted">{{record.at_post}}</div>
                 </h3>
                 <h2>{{record.title}}</h2>
                 
                 <p class="card-text">{{record.detail}}</p>
                 <div class="card mb-2">
-                <a href="#!"><img class="card-img-top" src="/media/{{record.image}}" alt="..." /></a>
+                <a href="{% url 'tunatoriapp:post' record.id %}"><img class="card-img-top" src="/media/{{record.image}}" alt="..." /></a>
                 </div>
                 <a class="btn btn-primary" href="{% url 'tunatoriapp:post' record.id %}">詳細 →</a>
             </div>
         </div>
         {% endfor %}
     {% else %}
+        {% if request.GET.query %}
         <div class="cart mb-4">
-            <h2 class="cart-title">(検索結果は)ないです。</h2>
+            <h2 class="cart-title">「{{ request.GET.query }}」の検索結果： 0件</h2>
         </div>
+        {% else %}
+        <div class="cart mb-4">
+            <h2 class="cart-title">まだ投稿された作品はありません</h2>
+        </div>
+        {% endif %}
     {% endif %}
     <!-- Nested row for non-featured blog posts-->
     <div class="row">

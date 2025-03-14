@@ -24,9 +24,10 @@ CATEGORY_CHOICES = (
 
 # 投稿
 class Publish(models.Model):
-    user_id = models.ForeignKey(CustomUser,on_delete=models.CASCADE)
+    user = models.ForeignKey(CustomUser,on_delete=models.CASCADE)
     # category_id = models.ForeignKey(Category,on_delete=models.CASCADE)
     category = models.CharField(max_length=64,choices=CATEGORY_CHOICES,verbose_name='カテゴリー')
+    rating_ave = models.FloatField('評価値',default=0)
     title = models.CharField(max_length=64,verbose_name="タイトル")
     detail = models.TextField(max_length=1024,verbose_name="作品詳細")
     image = models.ImageField(upload_to="images/")
@@ -36,14 +37,14 @@ class Publish(models.Model):
 
 # 返信
 class Reply(models.Model):
-    publish_id = models.ForeignKey(Publish,on_delete=models.CASCADE)
-    user_id = models.ForeignKey(CustomUser,on_delete=models.CASCADE)
+    publish = models.ForeignKey(Publish,on_delete=models.CASCADE)
+    user = models.ForeignKey(CustomUser,on_delete=models.CASCADE)
     rating = models.IntegerField('評価値',choices=SCORE_CHOICES,default=1)
     comment = models.TextField(max_length=1024,verbose_name="コメント")
     at_reply = models.DateTimeField("date published")
 
 # ブックマーク
 class Bookmark(models.Model):
-    user_id = models.ForeignKey(CustomUser,on_delete=models.CASCADE)
-    publish_id = models.ForeignKey(Publish,on_delete=models.CASCADE)
+    user = models.ForeignKey(CustomUser,on_delete=models.CASCADE)
+    publish = models.ForeignKey(Publish,on_delete=models.CASCADE)
     at_bookmark = models.DateTimeField("date published")
