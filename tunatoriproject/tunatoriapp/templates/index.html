@@ -44,8 +44,13 @@
     <div class="card mb-4">
             <div class="card-body">
                 <h3>
-                    <a class="btn btn-primary" href="{% url 'tunatoriapp:profile' record.user.id %}">アイコン</a>{{record.user.username}}　　　　　　　{{record.at_post}}<div class="small text-muted">{{record.at_post}}</div>
+                    <a href="{% url 'tunatoriapp:profile' record.user_id.id %}">
+                        <img class="aikon" src="/media/images/kkrn_icon_user_1.png">
+                    </a>
+                    {{record.user_id.username}}
                 </h3>
+                <p class="jikoku">{{record.at_post}}</p>
+
                 <h2>{{record.title}}</h2>
                 
                 <p class="card-text">{{record.detail}}</p>
