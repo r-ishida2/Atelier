@@ -25,15 +25,17 @@
     <div class="card mb-4">
             <div class="card-body">
                 <h3>
-                    <a class="btn btn-primary" href="{% url 'tunatoriapp:post' publish.id %}">アイコン</a>{{publish.user.username}}　　　　　　　{{publish.at_post}}<div class="small text-muted">{{publish.at_post}}</div>
+                    <a href="{% url 'tunatoriapp:profile' publish.user_id.id %}">
+                        <img class="aikon" src="/media/images/kkrn_icon_user_1.png"></a>{{publish.user_id.username}}　　　　　　　{{publish.at_post}}<div class="small text-muted">{{publish.at_post}}</div>
                 </h3>
+                <p class="jikoku">{{publish.at_post}}</p>
+
                 <h2>{{publish.title}}</h2>
-            
-            
+                
                 <p class="card-text">{{publish.detail}}</p>
-            <a href="#!"><img class="card-img-top" src="/media/{{publish.image}}" alt="..." /></a>
-                <h2 class="card-title">{{publish.title}}</h2>
-                <p class="card-text">{{publish.detail}}</p>
+                <div class="card mb-2">
+                <a href="#!"><img class="card-img-top" src="/media/{{publish.image}}" alt="..." /></a>
+                </div>
                 <a class="btn btn-primary" href="{% url 'tunatoriapp:post' publish.id %}">詳細 →</a>
             </div>
         </div>
