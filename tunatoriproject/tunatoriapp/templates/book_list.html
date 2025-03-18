@@ -1,9 +1,10 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
 {% block title %}Tunatori Home{% endblock %}
 
 {% block header %}
-{% load static %}
 <!-- Page header with logo and tagline-->
 <header class="py-1 bg-light border-bottom mb-4">
     <div class="container">
@@ -14,7 +15,6 @@
     </div>
 </header>
 {% endblock %}
-
 
 {% block contents %}
 <!-- Blog entries-->
@@ -63,8 +63,6 @@
 <!-- Side widgets-->
 <div class="col-lg-4">
     <!-- Search widget-->
-    <div class="card mb-4">
-    </div>
     <!-- Categories widget-->
     <div class="card mb-4">
         <div class="card-header">「つなトリ」とは</div>
