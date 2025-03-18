@@ -23,22 +23,24 @@
     {% if bookmarked_publishes %}
     {% for publish in bookmarked_publishes %}
     <div class="card mb-4">
-            <div class="card-body">
-                <h3>
-                    <a href="{% url 'tunatoriapp:profile' publish.user.id %}">
-                        <img class="aikon" src="/media/{{publish.user.usericon}}"></a>{{publish.user.username}}　　　　　　　{{publish.at_post}}<div class="small text-muted">{{publish.at_post}}</div>
-                </h3>
-                <p class="jikoku">{{publish.at_post}}</p>
+        <div class="card-body">
+            <h3>
+                <a href="{% url 'tunatoriapp:profile' publish.user.id %}">
+                    <img class="aikon" src="/media/{{publish.user.usericon}}">
+                </a>
+                {{publish.user.username}}
+            </h3>
+            <p class="jikoku">{{publish.at_post}}</p>
 
-                <h2>{{publish.title}}</h2>
-                
-                <p class="card-text">{{publish.detail}}</p>
-                <div class="card mb-2">
-                <a href="#!"><img class="card-img-top" src="/media/{{publish.image}}" alt="..." /></a>
-                </div>
-                <a class="btn btn-primary" href="{% url 'tunatoriapp:post' publish.id %}">詳細 →</a>
+            <h2>{{publish.title}}</h2>
+            
+            <p class="card-text">{{publish.detail}}</p>
+            <div class="card mb-2">
+            <a href="{% url 'tunatoriapp:post' publish.id %}"><img class="card-img-top" src="/media/{{publish.image}}" alt="..." /></a>
             </div>
+            <a class="btn btn-primary" href="{% url 'tunatoriapp:post' publish.id %}">詳細 →</a>
         </div>
+    </div>
         {% endfor %}
     {% else %}
         <div class="cart mb-4">

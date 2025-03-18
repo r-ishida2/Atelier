@@ -22,7 +22,7 @@
                     <!-- Featured blog post-->
                     <div class="card mb-4">
                         <div class="card-body">
-                            <a href="{% url 'tunatoriapp:profile' publish.user.id %}">{{publish.user.username}}</a>
+                            <a  href="{% url 'tunatoriapp:profile' publish.user.id %}">{{publish.user.username}}</a>
                             <h2 class="mb-0">タイトル：{{ publish.title }}</h2>
                             {% if publish.rating_ave == 0 %}
                             <p>平均評価：☆---</p>
