@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.views.generic.base import TemplateView
 from django.views.generic import ListView
-from django.views.generic.edit import FormView,CreateView
+from django.views.generic.edit import FormView,CreateView,DeleteView
 from .forms import PublishCreationForm, ReplyCreationForm
 from datetime import datetime
 from django.urls import reverse_lazy,reverse
@@ -132,3 +132,7 @@ def bookmarked_publishes(request):
     bookmarked_publishes = Publish.objects.filter(id__in=Bookmark.objects.filter(user=request.user).values_list('publish', flat=True))
 
     return render(request, 'book_list.html', {'bookmarked_publishes': bookmarked_publishes})
+
+class PublishDeleteView(DeleteView):
+    model = Publish
+    success_url = reverse_lazy("tunatoriapp:index")

@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}本当に削除しますか？{% endblock %}
+
+{% block contents %}
+<div class="container">
+    <div class="row">
+        <div class="py-4">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <form method="post">
+                    {% csrf_token %}
+                    <h2 class="mb-0">タイトル：{{ object.title }}</h2>
+                    <img src="/media/{{publish.image}}" width="100%">
+                    <p>この作品をアトリエから撤去しますか?</p>
+                    <p>この操作は取り消せません</p>
+                    <a class="btn btn-primary" href="{% url 'tunatoriapp:post' object.id %}">詳細ページに戻る</a>
+                    <input type="submit" value="本当に消す">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
