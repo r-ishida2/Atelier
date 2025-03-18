@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}本当に削除しますか？{% endblock %}
+
+{% block contents %}
+<div class="container">
+    <div class="row">
+        <div class="py-4">
+            <div class="card mb-4">
+                <div class="card-body">
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="更新">
+</form>
+</div>
+</div>
+</div>
+</div>
+</div>
+{% endblock %}

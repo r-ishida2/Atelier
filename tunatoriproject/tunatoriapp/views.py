@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.views.generic.base import TemplateView
 from django.views.generic import ListView
-from django.views.generic.edit import FormView,CreateView,DeleteView
+from django.views.generic.edit import FormView,CreateView,DeleteView,UpdateView
 from .forms import PublishCreationForm, ReplyCreationForm
 from datetime import datetime
 from django.urls import reverse_lazy,reverse
@@ -136,3 +136,9 @@ def bookmarked_publishes(request):
 class PublishDeleteView(DeleteView):
     model = Publish
     success_url = reverse_lazy("tunatoriapp:index")
+
+class UserUpdateView(UpdateView):
+    model = CustomUser
+    fields = ["usericon","username"]
+    template_name_suffix = '_update_form'
+    success_url = reverse_lazy('tunatoriapp:index')

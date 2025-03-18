@@ -3,6 +3,8 @@ from django.views.generic import CreateView
 from .forms import CustomUserCreationForm
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, TemplateView
+from django.views.generic.edit import UpdateView
+from .models import CustomUser
 
 class SignUpView(CreateView):
     form_class = CustomUserCreationForm
@@ -16,3 +18,4 @@ class SignUpView(CreateView):
 
 class SignUpSuccessView(TemplateView):
     template_name = "signup_success.html"
+

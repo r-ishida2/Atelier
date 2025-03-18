@@ -18,5 +18,7 @@ urlpatterns = [
     path('bookmarks/', bookmarked_publishes, name='bookmarked_publishes'),
 
     path('post/<int:pk>/delete/', views.PublishDeleteView.as_view(), name='delete'),
+    path('profile/<int:pk>/update/',views.UserUpdateView.as_view(),name='update'),
+
     # path('post/<int:publish>/reply/', views.ReplyView.as_view(), name='reply'),
 ]
