@@ -43,6 +43,9 @@
                             <a class="btn btn-primary" href="{% url 'tunatoriapp:bookmark' publish.id %}" >ブックマークする</a>
                             {% endif %}
                         {% endif %}
+                        {% if user == publish.user %}
+                        <a class="btn btn-primary" href="{% url 'tunatoriapp:delete' publish.id %}">削除</a>
+                        {% endif %}
                             <h3>【コメント一覧】</h3>
                             <ul class="list-unstyled mb-0">
                                 {% if replys %}

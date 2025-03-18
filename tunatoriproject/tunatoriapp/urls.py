@@ -17,5 +17,6 @@ urlpatterns = [
     path('bookmark_del/<int:bookmark_id>/',views.bookmark_del,name='bookmark_del'),
     path('bookmarks/', bookmarked_publishes, name='bookmarked_publishes'),
 
+    path('post/<int:pk>/delete/', views.PublishDeleteView.as_view(), name='delete'),
     # path('post/<int:publish>/reply/', views.ReplyView.as_view(), name='reply'),
 ]
