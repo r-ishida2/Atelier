@@ -42,14 +42,7 @@
     {% endif %}
     {% for record in object_list %}
     <div class="card mb-4">
-        <div class="card-body">
-            <h3>
-                <a href="{% url 'tunatoriapp:profile' record.user.id %}">
-                    <img class="aikon" src="/media/{{record.user.usericon}}">
-                </a>
-                {{record.user.username}}
-            </h3>
-            <p class="jikoku">{{record.at_post}}</p>
+        
             <div class="card-body">
                 <h3>
                     <a href="{% url 'tunatoriapp:profile' record.user.id %}"><img class="aikon" src="/media/{{record.user.usericon}}"></a>

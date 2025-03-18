@@ -5,16 +5,16 @@
 {% block title %}この作品にコメント{% endblock %}
 
 {% block header %}
-    <header class="py-5 bg-light border-bottom mb-4">
-        <div class="container">
-            
-            <div class="text-center my-5">
-                <h1 class="fw-bolder">返信ページ</h1>
-                <p class="lead mb-0">このページで作品にコメントができます</p>
-                <input type="button" value="戻る" onClick="javascript:history.go(-1);">
-            </div>
+<header class="py-5 bg-light border-bottom mb-4">
+    <div class="container">
+
+        <div class="text-center my-5">
+            <h1 class="fw-bolder">返信ページ</h1>
+            <p class="lead mb-0">このページで作品にコメントができます</p>
+            <input type="button" value="戻る" onClick="javascript:history.go(-1);">
         </div>
-    </header>
+    </div>
+</header>
 {% endblock %}
 
 {% block contents %}
@@ -32,25 +32,28 @@
             <img src="/media/{{publish.image}}" width="100%">
             <p>【作品について】<br>
                 {{ publish.detail }}</p>
-        <!-- </div>
+            <!-- </div>
     </div>
     <div class="card mb-4">
         <div class="card-body"> -->
-        {% if user.is_authenticated  %}
+            {% if user.is_authenticated %}
             {% if bookmark %}
             <a class="btn btn-primary" href="{% url 'tunatoriapp:bookmark_del' bookmark %}">ブックマーク解除</a>
             {% else %}
-            <a class="btn btn-primary" href="{% url 'tunatoriapp:bookmark' publish.id %}" >ブックマークする</a>
+            <a class="btn btn-primary" href="{% url 'tunatoriapp:bookmark' publish.id %}">ブックマークする</a>
             {% endif %}
-        {% endif %}
+            {% endif %}
+            {% if user == publish.user %}
+            <a class="btn btn-primary" href="{% url 'tunatoriapp:delete' publish.id %}">削除</a>
+            {% endif %}
             <h3>【コメント一覧】</h3>
             <ul class="list-unstyled mb-0">
                 {% if replys %}
-                    {% for reply in replys %}
-                        <li>☆{{reply.rating}} | {{reply.user.username}}：{{reply.comment}}</li>
-                    {% endfor %}
+                {% for reply in replys %}
+                <li>☆{{reply.rating}} | {{reply.user.username}}：{{reply.comment}}</li>
+                {% endfor %}
                 {% else %}
-                    <li>コメントはまだありません</li>
+                <li>コメントはまだありません</li>
                 {% endif %}
             </ul>
         </div>
