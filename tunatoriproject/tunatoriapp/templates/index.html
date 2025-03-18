@@ -50,6 +50,12 @@
                 {{record.user.username}}
             </h3>
             <p class="jikoku">{{record.at_post}}</p>
+            <div class="card-body">
+                <h3>
+                    <a href="{% url 'tunatoriapp:profile' record.user.id %}"><img class="aikon" src="/media/{{record.user.usericon}}"></a>
+                    {{record.user.username}}
+                </h3>
+                <p class="jikoku">{{record.at_post}}</p>
 
             <h2>{{record.title}}</h2>
 
