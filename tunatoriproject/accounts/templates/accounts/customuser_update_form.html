@@ -10,7 +10,9 @@
                 <div class="card-body">
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
-    {{ form.as_p }}
+    <img src="{{form.usericon.value.url}}" width="100%">
+    {{ form.usericon }}
+    {{ form.username }}
     <input type="submit" value="更新">
 </form>
 </div>
