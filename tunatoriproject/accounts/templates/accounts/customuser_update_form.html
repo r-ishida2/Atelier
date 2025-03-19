@@ -10,9 +10,15 @@
                 <div class="card-body">
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
-    <img src="{{form.usericon.value.url}}" width="100%">
-    {{ form.usericon }}
-    {{ form.username }}
+    <div class="form-group">
+        <label>アイコン画像</label>
+        {{ form.usericon }}
+        <img id="iconPreview" src="{{ form.usericon.value.url }}" alt="アイコンプレビュー" style="max-width: 300px; display: block; margin-top: 10px;">
+    </div>
+    <div class="form-group">
+        <label>ユーザ名：</label>
+        {{ form.username }}
+    </div>
     <input type="submit" value="更新">
 </form>
 </div>
@@ -20,4 +26,25 @@
 </div>
 </div>
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const userIconInput = document.querySelector('input[type="file"]');
+        const iconPreview = document.getElementById("iconPreview");
+    
+        if (userIconInput) {
+            userIconInput.addEventListener("change", function (event) {
+                const file = event.target.files[0];
+    
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        iconPreview.src = e.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+        }
+    });
+    </script>
 {% endblock %}
