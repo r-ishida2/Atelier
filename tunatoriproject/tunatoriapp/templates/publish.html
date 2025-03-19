@@ -17,13 +17,13 @@
 }
 
 /* 各入力フィールドのデザイン */
-.form-group {
+.form-group2 {
     display: flex;
     flex-direction: column;
     margin-bottom: 15px;
 }
 
-label {
+label2 {
     font-weight: bold;
     margin-bottom: 5px;
 }
@@ -40,7 +40,7 @@ input[type="file"] {
 }
 
 /* 送信ボタン */
-button {
+button2 {
     width: 100%;
     padding: 12px;
     font-size: 18px;
@@ -52,7 +52,7 @@ button {
     transition: background 0.3s ease;
 }
 
-button:hover {
+button2:hover {
     background: #0056b3;
 }
 
@@ -68,7 +68,7 @@ button:hover {
         font-size: 14px;
     }
 
-    button {
+    button2 {
         font-size: 16px;
         padding: 10px;
     }
@@ -95,28 +95,28 @@ button:hover {
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         <table>
-            <div class="form-group">
-                <label>タイトル</label>
+            <div class="form-group2">
+                <label2>タイトル</label2>
                 {{ form.title }}
             </div>
     
-            <div class="form-group">
-                <label>作品詳細</label>
+            <div class="form-group2">
+                <label2>作品詳細</label2>
                 {{ form.detail }}
             </div>
     
-            <div class="form-group">
-                <label>画像</label>
+            <div class="form-group2">
+                <label2>画像</label2>
                 {{ form.image }}
             </div>
     
-            <div class="form-group">
-                <label>カテゴリ</label>
+            <div class="form-group2">
+                <label2>カテゴリ</label2>
                 {{ form.category }}
             </div>
         </table>
         <hr>
-        <button type="submit">投稿！</button>
+        <button2 type="submit">投稿！</button2>
     </form>
 </div>
 {% endblock %}
