@@ -55,7 +55,7 @@ class ProfileView(ListView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["user"] = CustomUser.objects.get(id=self.kwargs.get('user'))
+        context["this_user"] = CustomUser.objects.get(id=self.kwargs.get('user'))
         return context
 
     # user= get_object_or_404(, id=user)
